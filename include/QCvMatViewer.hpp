@@ -130,8 +130,16 @@ class QCvMatViewer : public QOpenGLWidget, protected QOpenGLFunctions
         m_backgroundColor[1] = g;
         m_backgroundColor[2] = b;
     }
-    inline void setLineThickness(float value) { m_lineThickness = value; }
-    inline void setLineOpacity(float value) { m_lineOpacity = value; }
+    inline void setLineThickness(float value)
+    {
+        m_lineThickness = value;
+        update();
+    }
+    inline void setLineOpacity(float value)
+    {
+        m_lineOpacity = value;
+        update();
+    }
     /// \}
 
     /// \name Getters
