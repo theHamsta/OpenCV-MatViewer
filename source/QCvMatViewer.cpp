@@ -372,6 +372,9 @@ void QCvMatViewer::clearLinesToDraw()
     {
         glDeleteBuffers(1, &b);
     }
+    m_linesVbo.clear();
+    m_drawTriangles = false;
+    update();
 }
 
 void QCvMatViewer::appendLinesToDraw(const cv::Mat& pointPairs, float red, float blue, float green)
@@ -379,6 +382,7 @@ void QCvMatViewer::appendLinesToDraw(const cv::Mat& pointPairs, float red, float
     m_lines.push_back(pointPairs);
     m_lineColors.push_back({ red, green, blue });
 
+    m_drawTriangles = true;
     if (m_glInitialised)
     {
         GLuint linesVbo;
@@ -386,16 +390,14 @@ void QCvMatViewer::appendLinesToDraw(const cv::Mat& pointPairs, float red, float
         m_linesVbo.push_back(linesVbo);
         if (!pointPairs.empty())
         {
-            m_drawTriangles = true;
             assert(pointPairs.type() == CV_32FC2);
 
             glBindBuffer(GL_ARRAY_BUFFER, linesVbo);
             glBufferData(GL_ARRAY_BUFFER, pointPairs.elemSize() * pointPairs.total(), pointPairs.data, GL_STATIC_DRAW);
             glBindBuffer(GL_ARRAY_BUFFER, 0);
         }
-
-        update();
     }
+    update();
 }
 
 void QCvMatViewer::initializeGrid()
