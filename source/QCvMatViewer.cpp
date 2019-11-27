@@ -377,7 +377,7 @@ void QCvMatViewer::clearLinesToDraw()
     update();
 }
 
-void QCvMatViewer::appendLinesToDraw(const cv::Mat& pointPairs, float red, float blue, float green)
+void QCvMatViewer::appendLinesToDraw(const cv::Mat& pointPairs, float red, float green, float blue)
 {
     m_lines.push_back(pointPairs);
     m_lineColors.push_back({ red, green, blue });
